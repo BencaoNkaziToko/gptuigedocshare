@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Home - Share-Docs</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/index" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Share Docs</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="assets/img/icons8_Male_User_48px.png" alt="Profile" class="rounded-circle">
+            
+            <% let user = dados_utilizador[0].nomeUtilizador %>
+           
+            <span class="d-none d-md-block dropdown-toggle ps-2"><%=user.toUpperCase() %></span>
+          </a><!-- End Profile Iamge Icon -->
+          
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6><%= dados_utilizador[0].nome.toUpperCase() %></h6>
+              <span>Utilizador: <%=dados_utilizador[0].nivel %></span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/perfil/<%=dados_utilizador[0].id %>">
+                <i class="bi bi-person"></i>
+                <span>Meu Perfil</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-question-circle"></i>
+                <span>Precisa de ajuda?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sair</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="/index">
+          <i class="bi bi-grid"></i>
+          <span>Menu</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-file-earmark"></i><span>Documentos</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="components-accordion.html" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+              <img src="assets/img/icons8_Add_List_40px.png" alt="Profile" class="">
+              <span>Novo Documento</span>
+            </a>
+          </li>
+          <li>
+            <a href="components-accordion.html" data-bs-toggle="modal" data-bs-target="#ExtralargeModal">
+              <img src="assets/img/icons8_Search_Property_40px.png" alt="Profile" class="">
+              <span>Ver Documentos</span>
+            </a>
+            
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <% if(dados_utilizador[0].nivel == 'Administrador') {%>
+          <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-people"></i><span>Utilizadores</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="forms-elements.html" data-bs-toggle="modal" data-bs-target="#verticalycentered_2">
+                  <img src="assets/img/icons8_Add_User_Male_40px.png" alt="Profile" class="">
+                  <span>Novo Utilizador</span>
+                </a>
+              </li>
+              <li>
+                <a href="forms-elements.html" data-bs-toggle="modal" data-bs-target="#ExtralargeModal2">
+                  <img src="assets/img/icons8_Find_User_Male_40px.png" alt="Profile" class="">
+                  <i class="bi bi-person"></i><span>Ver Utilizadores</span>
+                </a>
+                
+              </li>
+            </ul>
+          </li>
+      <% } %>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/logout">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Sair</span>
+        </a>
+      </li><!-- End Login Page Nav -->
+    </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Página inicial</h1>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8 container">
+          <div class="row">
+            
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Documentos <span>| Total</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark text-dark"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6><%=documentosGeral.length %></h6>
+                      <span class="text-success small pt-1 fw-bold"><%=documentosGeral.length %></span> <span class="text-  small pt-2 ps-1">Documentos</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Sales Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title">Documentos <span>| Hoje</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6><%=documentosHoje[0].TOTAL %></h6>
+                      <span class="text-success small pt-1 fw-bold"><%=documentosHoje[0].TOTAL %></span> <span class="text-muted small pt-2 ps-1">Documentos</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Revenue Card -->
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+
+                
+
+                <div class="card-body">
+                  <h5 class="card-title">Documentos <span>| Mês</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6><%=documentosMes[0].TOTAL %></h6>
+                      <span class="text-success small pt-1 fw-bold"><%=documentosMes[0].TOTAL %></span> <span class="text-muted small pt-2 ps-1">Documentos</span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Revenue Card -->
+
+            <!-- Customers Card -->
+            <div class="col-xxl-4 col-xl-12">
+
+              <div class="card info-card customers-card">
+
+                
+                <div class="card-body">
+                  <h5 class="card-title">Documentos <span>| Ano</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-file-earmark"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6><%=documentosAno[0].TOTAL %></h6>
+                      <span class="text-danger small pt-1 fw-bold"><%=documentosAno[0].TOTAL %></span> <span class="text-muted small pt-2 ps-1">Documentos</span>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div><!-- End Customers Card -->
+
+            
+
+          </div>
+        </div><!-- End Left side columns -->
+
+       
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    
+    <div class="credits">
+      Concebido por <a href="https://bootstrapmade.com/">Bênção Nkazi TOko</a>
+      
+      
+      <div class="card">
+        <div class="card-body">
+          <div class="modal fade" id="verticalycentered" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title align-items-center">Adiconar Documento</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/uploadDocumento" method="post" enctype="multipart/form-data">
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-2 col-form-label">Título</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="titulo">
+                        <input type="text" class="form-control" name="id" value="<%=dados_utilizador[0].id %>">
+                      </div>
+                    </div>
+                
+                    <div class="row mb-3">
+                      <label for="inputPassword" class="col-sm-2 col-form-label">Descrição</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="descricao" required>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="inputNumber" class="col-sm-2 col-form-label">Carregar arquivo</label>
+                      <div class="col-sm-10">
+                        <input class="form-control" type="file" id="userFile" name="userFile" required>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      <button type="submit" class="btn btn-primary">Submeter</button>
+                    </div>
+                  </form>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade" id="verticalycentered_2" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title align-items-center">Adiconar Utilizador</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/adicionar_utilizador" method="post">
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-2 col-form-label">Nome completo</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nome" required>
+                      </div>
+                    </div>
+                
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-2 col-form-label">Nome de Login</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nomeUtilizador" required>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="inputText" class="col-sm-2 col-form-label">Palavra-Passe</label>
+                      <div class="col-sm-10">
+                        <input type="password" class="form-control" name="palavraPasse" required>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                      <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                  </form>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="modal fade" id="ExtralargeModal" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Controlar Documentos</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-lg-12">
+            
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Documentos disponíveis</h5>
+                          
+                          <!-- Table with stripped rows -->
+                          <table class="table datatable">
+                            <thead>
+                              <tr>
+                                <th scope="" class="text-center">Título</th>
+                                <th scope="" class="text-center">Descrição</th>
+                                <th scope="" class="text-center">Submetido por</th>
+                                <th scope="" class="text-center">Data</th>
+                                <th scope="" class="text-center">Opções</th>
+                                
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% documentosGeralCompleto.forEach((documento)=> {%>
+                              <tr>
+                                <td> <%=documento.titulo %> </td>
+                                <td><%=documento.descricao %></td>
+                                <td><%=documento.nome %></td>
+                                <td><%=documento.dataCadastro %></td>
+                                <td>
+                                    <% if(dados_utilizador[0].nivel == 'Administrador') {%>
+                                        <a href="/apagar_documento/<%=documento.id %>"><img src="assets/img/icons8_Trash_40px.png" alt="Profile" class="rounded-circle"></a>
+                                        <a href="/editar_documento/<%=documento.id %>"><img src="assets/img/icons8_Edit_Property_40px.png" alt="Profile" class="">
+                                        </a>
+                                        <a href="uploads/<%=documento.caminho %>" download="<%=documento.titulo %>.<%=documento.extensao %>"> <img src="assets/img/icons8_Download_40px.png" alt="Profile" class="">
+                                        </a>
+                                    <% } else if(dados_utilizador[0].id == documento.idUtilizador){%>
+                                        <a href="/apagar_documento/<%=documento.id %>"><img src="assets/img/icons8_Trash_40px.png" alt="Profile" class=""></a>
+                                        <a href="/editar_documento/<%=documento.id %>"><img src="assets/img/icons8_Edit_Property_40px.png" alt="Profile" class="">
+                                        </a>
+                                        <a href="uploads/<%=documento.caminho %>" download="<%=documento.titulo %>.<%=documento.extensao %>"> <img src="assets/img/icons8_Download_40px.png" alt="Profile" class="">
+                                        </a>
+                                    <% } else{%>
+                                        
+                                        <a href="uploads/<%=documento.caminho %>" download="<%=documento.titulo %>.<%=documento.extensao %>"> <img src="assets/img/icons8_Download_40px.png" alt="Profile" class="">
+                                        </a>
+                                    <% } %>
+                                </td>
+                              </tr>
+                              <% }) %>
+                            </tbody>
+                          </table>            
+                        </div>
+                      </div>
+            
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal fade" id="ExtralargeModal2" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Controlar Utilizadores</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-lg-12">
+            
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Utilizadores Cadastrados</h5>
+                          <table class="table datatable">
+                            <thead>
+                              <tr>
+                                <th scope="" class="text-center">Nome Completo</th>
+                                <th scope="" class="text-center">Nome de Utilizador</th>
+                                <th scope="" class="text-center">Nível</th>
+                                <th scope="" class="text-center">Estado</th>
+                                <th scope="" class="text-center">Opções	</th>
+                                
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% Utilizadores.forEach((utilizador)=>{ %>
+                                <tr>
+                                    <td><%= utilizador.nome %></td>
+                                    <td><%= utilizador.nomeUtilizador %></td>
+                                    <td><%= utilizador.nivel %></td>
+                                    <td><%= utilizador.estado %></td>
+                                    <td>
+                                        <% if(dados_utilizador[0].id != utilizador.id){%>
+                                          <a href="/eliminar_utilizador/<%= utilizador.id %>"><i class="h6 text-danger"><img src="assets/img/icons8_Delete_User_Male_40px.png" alt="Profile" class=""> </i></a>
+                                            <% if(utilizador.estado == 'Bloqueado'){%>
+                                                <a href="/activar_utilizador/<%= utilizador.id %>"><i class="h6 text-success"><img src="assets/img/icons8_Padlock_40px.png" alt="Profile" class=""> </i></a>
+                                            <% } else {%>
+                                                <a href="/bloquear_utilizador/<%= utilizador.id %>"><i class="h6 text-warning"><img src="assets/img/icons8_Lock_40px_2.png" alt="Profile" class=""></i></a>
+                                            <% } %>  
+                                        <% } %>
+                                    </td>
+                                </tr>
+                              <% }) %>
+                            </tbody>
+                          </table>            
+                        </div>
+                      </div>
+            
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+
+
+
+  
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.min.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
