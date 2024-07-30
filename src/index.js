@@ -17,7 +17,7 @@ app.use(session({
 const connection = require('./database/db')
 connection.connect(function(error){
     if(!!error){ console.log("Warning: "+error)}
-    else console.log("****  Database Connected successfuly  ****")
+    else console.log("Database Connected successfuly...")
 })
 
 
