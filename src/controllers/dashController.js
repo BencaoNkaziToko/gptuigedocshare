@@ -34,7 +34,7 @@ exports.index = async(req, res) =>{
     let consultaDocHoje = `SELECT COUNT(id) AS TOTAL FROM documento WHERE dataCadastro=curdate()`
     let conultaDocMes = `SELECT COUNT(id) AS TOTAL FROM documento WHERE MONTH(dataCadastro)= ${mesAtual}`
     let conultaDocAno = `SELECT COUNT(id) AS TOTAL FROM documento WHERE YEAR(dataCadastro)= ${anoAtual}`
-    let consultaCompleta= `SELECT nome, titulo, documento.id, caminho, documento.idUtilizador, descricao, dataCadastro FROM documento LEFT JOIN utilizador ON documento.idUtilizador = utilizador.id order by dataCadastro`
+    let consultaCompleta= `SELECT nome, titulo, documento.id, caminho, documento.idUtilizador, descricao, dataCadastro FROM documento LEFT JOIN utilizador ON documento.idUtilizador = utilizador.id order by dataCadastro desc`
     let cons_utilizadores = 'SELECT *FROM utilizador ORDER BY nome'
     if(req.session.utilizador){
         connection.query(consultaGeral,(error, documentosGeral)=>{
